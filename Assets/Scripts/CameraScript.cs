@@ -1,61 +1,47 @@
+using System.Collections;
 using UnityEngine;
 
-public class CameraScript : MonoBehaviour
+public class LerpMovement : MonoBehaviour
 {
     [SerializeField] private Vector3 pos1, pos2;
     [SerializeField] private Quaternion rot1, rot2;
+    [SerializeField] private float duration;
+    private bool movingToPos1 = false;
+    private float startTime;
     private bool moving = false;
 
-    private float time = 0f;
-    [SerializeField] private float duration;
+    private void Start()
+    {
+        startTime = Time.time;
+        StartCoroutine(LerpRoutine());
+    }
 
-    private void OnSwitch()
+    private IEnumerator LerpRoutine()
+    {
+        yield return new WaitForSeconds(167 - duration);
+        
+        yield return StartCoroutine(LerpTransform(pos2, pos1, rot2, rot1, duration));
+        
+        yield return new WaitForSeconds(250 - (Time.time - startTime));
+        yield return StartCoroutine(LerpTransform(pos1, pos2, rot1, rot2, duration));
+    }
+
+    private IEnumerator LerpTransform(Vector3 startPos, Vector3 endPos, Quaternion startRot, Quaternion endRot, float duration)
     {
         moving = true;
-        time = 0f;  
-    }
-    void Start()
-    {
-            Vector3 tempPos = pos1;
-            pos1 = pos2;
-            pos2 = tempPos;
-
-            Quaternion tempRot = rot1;
-            rot1 = rot2;
-            rot2 = tempRot;
-    }
-    void Update()
-    {
-        time += Time.deltaTime;
-
-        if (time >= 167 - duration && !moving)
+        float elapsedTime = 0f;
+        
+        while (elapsedTime < duration)
         {
-            OnSwitch();
+            elapsedTime += Time.deltaTime;
+            float lerpFraction = Mathf.Sin((elapsedTime / duration) * Mathf.PI * 0.5f);
+            transform.position = Vector3.Lerp(startPos, endPos, lerpFraction);
+            transform.rotation = Quaternion.Slerp(startRot, endRot, lerpFraction);
+            yield return null;
         }
-
-        if (time >= 250 && moving)
-        {
-            Vector3 tempPos = pos1;
-            pos1 = pos2;
-            pos2 = tempPos;
-
-            Quaternion tempRot = rot1;
-            rot1 = rot2;
-            rot2 = tempRot;
-
-            OnSwitch();
-        }
-
-        if (moving)
-        {
-            float lerpFraction = Mathf.Sin((time / duration) * Mathf.PI * 0.5f);
-            transform.position = Vector3.Lerp(pos1, pos2, lerpFraction);
-            transform.rotation = Quaternion.Lerp(rot1, rot2, lerpFraction);
-
-            if (time >= duration)
-            {
-                moving = false;
-            }
-        }
+        
+        transform.position = endPos;
+        transform.rotation = endRot;
+        moving = false;
     }
 }

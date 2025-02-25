@@ -34,9 +34,13 @@ public class rain : MonoBehaviour
         if(time >= .4f)
         {
             if (currentAmp > previousAmp + 0.05f) {
-                Debug.Log("Current Audio Amp: " + currentAmp * 1000);
+                //Debug.Log("Current Audio Amp: " + currentAmp * 1000);
                 int numDrops = 1 + (int) ((currentAmp * 1000) / 50f);
-                Mathf.Clamp(numDrops, 1, 3);
+                //Mathf.Clamp(numDrops, 1, 3);
+                if(numDrops >= 5)
+                {
+                    numDrops = 5;
+                }
                 Debug.Log("drops: " + numDrops);
                 for(int i = 0; i < numDrops; i++)
                 {
