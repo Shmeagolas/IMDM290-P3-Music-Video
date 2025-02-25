@@ -17,9 +17,19 @@ public class Splatter : MonoBehaviour
     private void OnCollisionEnter(Collision collision) {
         if (collision.gameObject.CompareTag("Plane") || collision.gameObject.CompareTag("Ripple")) {
             ContactPoint contact = collision.contacts[0];
-            Vector3 pos = contact.point;
-            // Destroy(gameObject);
+            Vector3 pos = contact.point + new Vector3(0f, .1f, 0);
+            //Destroy(gameObject);
             StartCoroutine(CreateRipplesWithDelay(pos));
+        }
+    }
+
+    void Update()
+    {
+        Vector3 pos = this.transform.position;
+        if (pos.y <= 0)
+        {
+
+            StartCoroutine(CreateRipplesWithDelay(new Vector3(pos.x, .1f, pos.z)));
         }
     }
 
