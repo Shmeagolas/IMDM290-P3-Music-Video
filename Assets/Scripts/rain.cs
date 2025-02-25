@@ -14,6 +14,8 @@ public class rain : MonoBehaviour
 
     void Start()
     {
+        int raindropsLayer = LayerMask.NameToLayer("Raindrops");
+        Physics.IgnoreLayerCollision(raindropsLayer, raindropsLayer);
         Camera.main.transform.position = new Vector3(0f, 5.87f, -6.91f);
         Camera.main.transform.rotation = Quaternion.Euler(45.723f, 0f, 0f);
     }
@@ -22,7 +24,7 @@ public class rain : MonoBehaviour
     void Update()
     {
         float currentAmp = AudioSpectrum.audioAmp;
-        Debug.Log("Current Audio Amp: " + currentAmp * 1000);
+    //    Debug.Log("Current Audio Amp: " + currentAmp * 1000);
 
         if (currentAmp > previousAmp + 0.05f) {
             SpawnRaindrop();
