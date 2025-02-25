@@ -37,17 +37,17 @@ public class Splatter : MonoBehaviour
     {
         // Create the first ripple immediately
         ripple.CreateRipple(position);
-        Debug.Log("First ripple created");
+        //Debug.Log("First ripple created");
 
         // Wait for a short delay before creating the second ripple
         yield return new WaitForSeconds(0.3f); // Adjust the delay time as needed
         ripple.CreateRipple(position);
-        Debug.Log("2nd ripple created");
+        //Debug.Log("2nd ripple created");
 
         // Wait for another short delay before creating the third ripple
         yield return new WaitForSeconds(0.3f); // Adjust the delay time as needed
         ripple.CreateRipple(position);
-        Debug.Log("3rd ripple created");
+        //Debug.Log("3rd ripple created");
         Destroy(gameObject);
 
     }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -13,6 +14,8 @@ public class rain : MonoBehaviour
     public float zRange = 20f;
     private float previousAmp = 0f;
     [SerializeField] float forceAmount = 1;
+    public int dropCounter = 0;
+    float time;
 
 
     void Start()
@@ -26,21 +29,24 @@ public class rain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        time += Time.deltaTime;
         float currentAmp = AudioSpectrum.audioAmp;
-        
-        if (currentAmp > previousAmp + 0.05f) {
-            //Debug.Log("Current Audio Amp: " + currentAmp * 1000);
-            int numDrops = 1 + (int) ((currentAmp * 1000) / 50f);
-            Math.Clamp(numDrops, 1, 5);
-            //Debug.Log("drops: " + numDrops);
-            for(int i = 0; i < numDrops; i++)
-            {
-                SpawnRaindrop();
+        if(time >= .4f)
+        {
+            if (currentAmp > previousAmp + 0.05f) {
+                Debug.Log("Current Audio Amp: " + currentAmp * 1000);
+                int numDrops = 1 + (int) ((currentAmp * 1000) / 50f);
+                Mathf.Clamp(numDrops, 1, 3);
+                Debug.Log("drops: " + numDrops);
+                for(int i = 0; i < numDrops; i++)
+                {
+                    SpawnRaindrop();
+                }
+
+                time = 0;
             }
 
-        
         }
-
         previousAmp = currentAmp;
     }
 

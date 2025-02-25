@@ -42,6 +42,11 @@ public class Hurricane : MonoBehaviour
     void Update()
     {
         float h = height;
+        float currentAmp = AudioSpectrum.audioAmp;
+        currentAmp = ((int) (currentAmp * 10f)) / 10f;
+        sizeScalar = Mathf.Lerp(.5f, 2f, currentAmp / 3f);
+        speedScalar = Mathf.Lerp(0.5f, 2f, currentAmp / 3f);
+
         for (int i = 0; i < numSpheres; i++)
         {
             angles[i] += speeds[i] * speedScalar * Time.deltaTime;
@@ -67,14 +72,12 @@ public class Hurricane : MonoBehaviour
 
     private float findXEllipse(int i, float t, Vector2 axes)
     {
-        // x = pcos(θ)cos(a) + qsin(θ)sin(a)
         float a = ellipseAngles[i];
         return axes.x * Mathf.Cos(t) * Mathf.Cos(a) + axes.y * Mathf.Sin(t) * Mathf.Sin(a);
     }
 
     private float findZEllipse(int i, float t, Vector2 axes)
     {
-        // z = −pcos(θ)sin(a) + qsin(θ)cos(a)
         float a = ellipseAngles[i];
         return -1 * axes.x * Mathf.Cos(t) * Mathf.Sin(a) + axes.y * Mathf.Sin(t) * Mathf.Cos(a);
     }
