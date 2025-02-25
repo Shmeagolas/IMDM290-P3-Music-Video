@@ -28,7 +28,7 @@ public class AudioSpectrum : MonoBehaviour
         {
             audioAmp += samples[i];
         }
-        Debug.Log("Updated Audio Amp: " + audioAmp);
+       // Debug.Log("Updated Audio Amp: " + audioAmp);
 
     }
 }

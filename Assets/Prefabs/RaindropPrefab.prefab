@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5846693338850305932}
   - component: {fileID: -697713428283414854}
   - component: {fileID: -4809162836271857059}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: RaindropPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,10 +61,13 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3903bae0dfa9d479a901643a29c6a4c5, type: 2}
+  - {fileID: 2100000, guid: bc1675c26b62548e1b29fb5e3e3594dc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
